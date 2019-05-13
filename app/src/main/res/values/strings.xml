@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WordsClient</string>
+    <string name="correct_button">I know</string>
+    <string name="incorrect_button">I don\'t know</string>
+    <string name="start_button">START</string>
+    <string name="db_word">Word</string>
+</resources>
