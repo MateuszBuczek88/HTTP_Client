@@ -1,14 +1,16 @@
 package com.example.mateusz.wordsclient;
 
+import java.util.List;
+
 public class Ids {
 
-    private Integer id;
+    private List<Integer> ids;
 
-    public Ids(int id) {
-        this.id = id;
+    public Ids(List<Integer> id) {
+        this.ids = id;
     }
 
-    public String getId() {
-        return id.toString();
+    public List<Integer> getIds() {
+        return ids;
     }
 }

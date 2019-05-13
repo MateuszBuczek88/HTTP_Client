@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Ids>> call, Response<List<Ids>> response) {
                 List <Ids> ids = response.body();
-               
+
             }
 
             @Override
