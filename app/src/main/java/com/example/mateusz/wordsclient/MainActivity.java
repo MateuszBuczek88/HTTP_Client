@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
                 .baseUrl(Api.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        final ListView listView = findViewById(R.id.id_list);
         Api api = retrofit.create(Api.class);
         Call<Ids> call = api.getID();
 
@@ -32,9 +35,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Ids> call, Response<Ids> response) {
                 List <Integer> ids = response.body().getIds();
-                for (Integer a : ids) {
-                    Log.d("ID",a.toString());
+                String [] listIds = new String[ids.size()];
+                for (int i = 0 ; i < ids.size() ; i++) {
+                    listIds[i] = ids.get(i).toString();
                 }
+                listView.setAdapter(new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,listIds));
 
             }
 
