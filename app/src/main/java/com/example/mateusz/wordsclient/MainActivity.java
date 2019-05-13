@@ -26,17 +26,20 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Api api = retrofit.create(Api.class);
-        Call<List<Ids>> call = api.getID();
+        Call<Ids> call = api.getID();
 
-        call.enqueue(new Callback<List<Ids>>() {
+        call.enqueue(new Callback<Ids>() {
             @Override
-            public void onResponse(Call<List<Ids>> call, Response<List<Ids>> response) {
-                List <Ids> ids = response.body();
+            public void onResponse(Call<Ids> call, Response<Ids> response) {
+                List <Integer> ids = response.body().getIds();
+                for (Integer a : ids) {
+                    Log.d("ID",a.toString());
+                }
 
             }
 
             @Override
-            public void onFailure(Call<List<Ids>> call, Throwable t) {
+            public void onFailure(Call<Ids> call, Throwable t) {
                 Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });

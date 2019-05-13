@@ -9,7 +9,7 @@ public interface Api {
 
     String BASE_URL = "http://192.168.1.12:10100/";
     @GET("words")
-    Call<List<Ids>>getID();
+    Call<Ids>getID();
 
 
 }
