@@ -2,11 +2,10 @@ package com.example.mateusz.wordsclient;
 
 import java.util.List;
 
-public class Ids {
-
+public class WordsIds {
     private List<Integer> ids;
 
-    public Ids(List<Integer> id) {
+    public WordsIds(List<Integer> id) {
         this.ids = id;
     }
 
