@@ -8,10 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Button button;
     private ProgressBar progressBar;
-    List<Integer> ids;
+    private ArrayList<Integer> ids;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,31 +45,20 @@ public class MainActivity extends AppCompatActivity {
 
         Api api = retrofit.create(Api.class);
         Call<WordsIds> call = api.getID();
-/*
-        call.enqueue(new Callback<WordsIds>() {
-            @Override
-            public void onResponse(Call<WordsIds> call, Response<WordsIds> response) {
-                List<Integer> ids = response.body().getIds();
-            }
 
-            @Override
-            public void onFailure(Call<WordsIds> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        */
-       new FetchData(call).execute();
+        new FetchData(call).execute();
 
     }
 
     public void startWords(View view) {
         Intent intent = new Intent(this, WordActivity.class);
+        intent.putIntegerArrayListExtra("IdsList", ids);
         startActivity(intent);
     }
 
     class FetchData extends AsyncTask<Void, Void, Response<WordsIds>> {
 
-        public FetchData (Call call) {
+        public FetchData(Call call) {
             this.call = call;
         }
 
@@ -84,22 +73,23 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             return result;
-
-
         }
 
         @Override
         protected void onPostExecute(Response<WordsIds> result) {
             if (result != null) {
-                ids = result.body().getIds();
+
+                ids = (ArrayList<Integer>) result.body().getIds();
+
+
             } else {
 
+                //return failure information
             }
             progressBar.setVisibility(View.GONE);
             button.setVisibility(View.VISIBLE);
-            button.setText(ids.get(2).toString());
+
         }
     }
 }
